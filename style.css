@@ -1,0 +1,26 @@
+
+.container{
+    display: grid;
+    background-color: yellow;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px;
+    /*width: 400px;*/
+    height: 100vh;
+    grid-gap: 10px;
+    justify-content: center;
+    align-content: center;
+
+
+}
+.item{
+    background-color: mediumpurple;
+}
+.new{
+    background-color: mediumpurple;
+    animation:pop 2s ease-in-out;
+}
+@keyframes pop {
+    100%{
+        background-color: red;
+    }
+}
