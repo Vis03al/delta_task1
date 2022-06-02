@@ -14,10 +14,6 @@ function fun(evt) {
     console.log("clicked")
     console.log(buttonPressed);
 
-    // if (ran_arr.length === buttonPressed.length) {
-    //     console.log("going to check ans")
-    //     checkans()
-    // }
     checkans()
 
 }
@@ -39,22 +35,6 @@ function tilegen() {
         tilegen()
     }
 }
-
-
-// function glow(ran_arr) {
-//     console.log("inside newround")
-//     console.log("buttonpressed", buttonPressed)
-    // for (let i = 0; i < ran_arr.length; i++) {
-    //
-    //     let myId = document.getElementById(ran_arr[i]);
-    //     myId.classList.remove('new')
-    //
-    //     let elem = myId;
-    //     setTimeout(() => {
-    //         elem.classList.add('new');
-    //     }, 100)
-    //
-    // }
 
 function myLoop(ran_arr,i){
     console.log("i=",i)
