@@ -1,26 +1,36 @@
-
-.container{
+body{
+    background-color: #1e1326;
+}
+h1{
+    color: white;
+    font-size: 22px;
+    text-align: center;
+}.container{
     display: grid;
-    background-color: yellow;
+    background: url("bg.png") ;
     grid-template-columns: 100px 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px 100px;
-    /*width: 400px;*/
-    height: 100vh;
+    grid-row-columns: 100px 100px 100px 100px;
     grid-gap: 10px;
+    grid-row-gap: 10px;
     justify-content: center;
     align-content: center;
-
-
+    height: 100vh;
 }
-.item{
-    background-color: mediumpurple;
+
+.btn{
+    padding: 40px 15px;
+    background-color: white;
+
+
 }
 .new{
-    background-color: mediumpurple;
+
+    background-color: white;
     animation:pop 2s ease-in-out;
+
 }
 @keyframes pop {
     100%{
-        background-color: red;
+        background-color: #04f534;
     }
 }

@@ -7,6 +7,7 @@
     <script src="script.js"></script>
 </head>
 <body>
+        <h1>PIANO TILE GAME</h1>
         <div class="container">
         <button class="btn" id=0 ></button>
         <button class="btn" id=1 ></button>
@@ -31,42 +32,15 @@
 
     let ran_arr=[];
     let buttonPressed = [];
-
-
-    function tilegen(){
-        let ran = Math.floor(Math.random() * (16));
-        ran_arr.push(ran)
-        console.log(ran_arr)
-        glow(ran_arr)
+    let selectedButton
+    let score=0;
+    for (let i = 0; i < 16; i++) {
+        selectedButton = document.querySelectorAll(".btn")[i];
+        selectedButton.addEventListener('click', fun)
     }
+    function fun(evt){
 
-
-    function glow(ran_arr) {
-        console.log("inside newround")
-        for (let i = 0; i < ran_arr.length; i++) {
-            // console.log("loops start")
-            let myId = document.getElementById(ran_arr[i]);
-            myId.classList.remove('new')
-
-            let elem = myId;
-            setTimeout(() => {
-                elem.classList.add('new');
-            }, 100)
-            // console.log("loop ends")
-            // myId.classList.add('new');
-        }
-        click()
-    }
-     function click() {
-        let selectedButton;
-        console.log("inside click")
-        for (let i = 0; i < 16; i++) {
-            selectedButton = document.querySelectorAll(".btn")[i];
-            selectedButton.addEventListener('click', fun)
-
-        }
-        function fun(){
-                let chosenButton = this.getAttribute("id");
+                let chosenButton = evt.target.getAttribute("id");
                 buttonPressed.push(chosenButton);
                 console.log("clicked")
                 console.log(buttonPressed);
@@ -76,45 +50,72 @@
                     checkans()
                 }
                 else{
-                    selectedButton.removeEventListener('click',fun);
-                    click()
+                    fun()
                 }
-    }}
+    }
+    function random(){
+        let ran = Math.floor(Math.random() * (16));
+        return ran;
+    }
+
+
+    function tilegen(){
+        let ran = random()
+        if(!ran_arr.includes(ran)){
+            ran_arr.push(ran)
+            console.log(ran_arr)
+            glow(ran_arr)
+        }
+        else{
+            tilegen()
+        }
+    }
+
+
+    function glow(ran_arr) {
+        console.log("inside newround")
+        console.log("buttonpressed",buttonPressed)
+        for (let i = 0; i < ran_arr.length; i++) {
+
+            let myId = document.getElementById(ran_arr[i]);
+            myId.classList.remove('new')
+
+            let elem = myId;
+            setTimeout(() => {
+                elem.classList.add('new');
+            }, 100)
+
+        }
+        fun()
+    }
+
     function checkans(){
         const result = ran_arr.every(element =>{
             return buttonPressed.includes(element.toString());
             });
         console.log(ran_arr,buttonPressed)
         console.log(result)
-        // if(result){
-        //     console.log("yah");
-        //     buttonPressed.pop()
-        //     newRound()
-        // }
 
         if(ran_arr.length === buttonPressed.length){
             if(result){
+                score++;
                 console.log("yah")
-                for (let i = 0; i < buttonPressed.length; i++) {
-                    buttonPressed.pop();
+                while(buttonPressed.length){
+                    buttonPressed.pop()
                 }
                 tilegen();
             }
             else{
                 console.log("nah")
+                alert("GAME OVER \nYOUR SCORE = "+score)
             }
         }
         else{
-            click()
+            fun()
         }
 
 
     }
-
-
-
-
-
     tilegen()
 
 
