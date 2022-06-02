@@ -8,89 +8,115 @@
 </head>
 <body>
         <div class="container">
-            <div class="item" id="0"></div>
-            <div class="item" id="1"></div>
-            <div class="item" id="2"></div>
-            <div class="item" id="3"></div>
-            <div class="item" id="4"></div>
-            <div class="item" id="5"></div>
-            <div class="item" id="6"></div>
-            <div class="item" id="7"></div>
-            <div class="item" id="8"></div>
-            <div class="item" id="9"></div>
-            <div class="item" id="10"></div>
-            <div class="item" id="11"></div>
-            <div class="item" id="12"></div>
-            <div class="item" id="13"></div>
-            <div class="item" id="14"></div>
-            <div class="item" id="15"></div>
+        <button class="btn" id=0 ></button>
+        <button class="btn" id=1 ></button>
+        <button class="btn" id=2 ></button>
+        <button class="btn" id=3 ></button>
+        <button class="btn" id=4 ></button>
+        <button class="btn" id=5 ></button>
+        <button class="btn" id=6 ></button>
+        <button class="btn" id=7 ></button>
+        <button class="btn" id=8 ></button>
+        <button class="btn" id=9 ></button>
+        <button class="btn" id=10 ></button>
+        <button class="btn" id=11 ></button>
+        <button class="btn" id=12 ></button>
+        <button class="btn" id=13 ></button>
+        <button class="btn" id=14 ></button>
+        <button class="btn" id=15 ></button>
 
-        </div>
-
+    </div>
 </body>
 <script>
-    const item = document.querySelector('.container');
-    let score = 0;
-    ran_arr=[];
 
-    function startGame() {
+    let ran_arr=[];
+    let buttonPressed = [];
+
+
+    function tilegen(){
         let ran = Math.floor(Math.random() * (16));
-        console.log("randome num=",ran)
-        ran_arr.push(ran);
-        // console.log(ran_arr);
-        glowtile(ran_arr);
-        // for (let i = 0; i < ran_arr.length; i++) {
-        //     console.log("loop",i);
-        //     let myId = document.getElementById(ran_arr[i]);
-        //     myId.classList.add("new");
-            // myId.style.backgroundColor = 'red';
-
-            // item.addEventListener("click", (e) => {
-            //     console.log(e.target);
-            //     if (e.target == myId) {
-            //         score++;
-            //         // myId.style.backgroundColor = 'mediumpurple'
-            //         // console.log(score)
-            //         startGame();
-            //     } else {
-            //         endgame()
-            //     }
-            // })
+        ran_arr.push(ran)
+        console.log(ran_arr)
+        glow(ran_arr)
     }
-    function glowtile(ran_arr){
-            let myId;
-        console.log("array is",ran_arr)
-            for (let i = 0; i < ran_arr.length; i++) {
-                console.log("loop",i,"start");
-                myId = document.getElementById(ran_arr[i]);
-                myId.classList.remove("new")
 
-                myId.classList.add("new");
 
-                console.log("loop",i,"done")
+    function glow(ran_arr) {
+        console.log("inside newround")
+        for (let i = 0; i < ran_arr.length; i++) {
+            // console.log("loops start")
+            let myId = document.getElementById(ran_arr[i]);
+            myId.classList.remove('new')
 
+            let elem = myId;
+            setTimeout(() => {
+                elem.classList.add('new');
+            }, 100)
+            // console.log("loop ends")
+            // myId.classList.add('new');
+        }
+        click()
+    }
+     function click() {
+        let selectedButton;
+        console.log("inside click")
+        for (let i = 0; i < 16; i++) {
+            selectedButton = document.querySelectorAll(".btn")[i];
+            selectedButton.addEventListener('click', fun)
+
+        }
+        function fun(){
+                let chosenButton = this.getAttribute("id");
+                buttonPressed.push(chosenButton);
+                console.log("clicked")
+                console.log(buttonPressed);
+
+                if(ran_arr.length===buttonPressed.length){
+                    console.log("going to check ans")
+                    checkans()
+                }
+                else{
+                    selectedButton.removeEventListener('click',fun);
+                    click()
+                }
+    }}
+    function checkans(){
+        const result = ran_arr.every(element =>{
+            return buttonPressed.includes(element.toString());
+            });
+        console.log(ran_arr,buttonPressed)
+        console.log(result)
+        // if(result){
+        //     console.log("yah");
+        //     buttonPressed.pop()
+        //     newRound()
+        // }
+
+        if(ran_arr.length === buttonPressed.length){
+            if(result){
+                console.log("yah")
+                for (let i = 0; i < buttonPressed.length; i++) {
+                    buttonPressed.pop();
+                }
+                tilegen();
             }
-            clicktile(myId)
-            // console.log('myid in glowtile',myId);
-    }
-    function clicktile(myId) {
-        console.log(myId)
-        item.addEventListener("click", (e) => {
-            console.log(e.target);
-            if (e.target == myId) {
-                // score++;
-                // myId.style.backgroundColor = 'mediumpurple'
-                // console.log(score)
-                startGame()
-            } else {
-                endgame()
+            else{
+                console.log("nah")
             }
-        })
-    }
-    function endgame(){
+        }
+        else{
+            click()
+        }
+
 
     }
-    startGame();
+
+
+
+
+
+    tilegen()
+
 
 
 
