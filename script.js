@@ -14,10 +14,11 @@ function fun(evt) {
     console.log("clicked")
     console.log(buttonPressed);
 
-    if (ran_arr.length === buttonPressed.length) {
-        console.log("going to check ans")
-        checkans()
-    }
+    // if (ran_arr.length === buttonPressed.length) {
+    //     console.log("going to check ans")
+    //     checkans()
+    // }
+    checkans()
 
 }
 
@@ -57,26 +58,21 @@ function glow(ran_arr) {
 }
 
 function checkans() {
-    const result = ran_arr.every(element => {
-        return buttonPressed.includes(element.toString());
-    });
-    console.log(ran_arr, buttonPressed)
-    console.log(result)
-
-    if (ran_arr.length === buttonPressed.length) {
-        if (result) {
+    const result = buttonPressed.every(element =>{
+        return ran_arr.includes(parseInt(buttonPressed))
+    })
+    if(!result){
+        alert("GAME OVER \nYOUR SCORE = " + score)
+    }
+    else{
+        if(ran_arr.length === buttonPressed.length){
             score++;
-            console.log("yah")
-            while (buttonPressed.length) {
+            while(buttonPressed.length){
                 buttonPressed.pop()
             }
             tilegen();
-        } else {
-            console.log("nah")
-            alert("GAME OVER \nYOUR SCORE = " + score)
         }
     }
-
 
 }
 
