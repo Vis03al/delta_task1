@@ -30,32 +30,49 @@ function random() {
 
 function tilegen() {
     let ran = random()
+    let i=0;
     if (!ran_arr.includes(ran)) {
         ran_arr.push(ran)
         console.log(ran_arr)
-        glow(ran_arr)
+        myLoop(ran_arr,i)
     } else {
         tilegen()
     }
 }
 
 
-function glow(ran_arr) {
-    console.log("inside newround")
-    console.log("buttonpressed", buttonPressed)
-    for (let i = 0; i < ran_arr.length; i++) {
+// function glow(ran_arr) {
+//     console.log("inside newround")
+//     console.log("buttonpressed", buttonPressed)
+    // for (let i = 0; i < ran_arr.length; i++) {
+    //
+    //     let myId = document.getElementById(ran_arr[i]);
+    //     myId.classList.remove('new')
+    //
+    //     let elem = myId;
+    //     setTimeout(() => {
+    //         elem.classList.add('new');
+    //     }, 100)
+    //
+    // }
 
-        let myId = document.getElementById(ran_arr[i]);
-        myId.classList.remove('new')
+function myLoop(ran_arr,i){
+    console.log("i=",i)
+        setTimeout( ()=>{
+            let myId = document.getElementById(ran_arr[i]);
+            myId.classList.remove('new');
+            let elem = myId;
+            setTimeout(()=>{elem.classList.add('new');},500)
 
-        let elem = myId;
-        setTimeout(() => {
-            elem.classList.add('new');
-        }, 100)
-
+            i++;
+            if(i<ran_arr.length){
+                myLoop(ran_arr,i);
+            }
+        },1000)
     }
 
-}
+
+
 
 function checkans() {
     const result = buttonPressed.every(element =>{
