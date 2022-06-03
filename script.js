@@ -56,7 +56,7 @@ function myLoop(ran_arr,i){
 
 function checkans() {
     const result = buttonPressed.every(element =>{
-        return ran_arr.includes(parseInt(buttonPressed))
+        return ran_arr.includes(parseInt(element))
     })
     if(!result){
         alert("GAME OVER \nYOUR SCORE = " + score)
